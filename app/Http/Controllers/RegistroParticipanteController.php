@@ -7,7 +7,7 @@ use App\Models\Participante;
 use App\Models\Sorteo;
 use App\Models\Tienda;
 use App\Models\QrTienda;
-    
+
 class RegistroParticipanteController extends Controller
 {
     public function create($slug)
@@ -19,17 +19,26 @@ class RegistroParticipanteController extends Controller
         $sorteo = Sorteo::findOrFail($sorteo_id);
         $tienda = Tienda::findOrFail($tienda_id);
 
-        return view('form_sorteo', compact('sorteo', 'tienda'));
+        return view('form_sorteo', compact('sorteo', 'tienda', 'slug'));
     }
 
     public function store(Request $request, $slug)
     {
         $qr = QrTienda::where('slug', $slug)->firstOrFail();
-        $sorteo_id = $qr->sorteo_id;
+        $sorteo = Sorteo::findOrFail($qr->sorteo_id);
         $tienda_id = $qr->tienda_id;
 
-    
-        $participanteExistente = Participante::where('sorteo_id', $sorteo_id)
+        // 1️⃣ Verificar si ya se alcanzó el límite de boletas
+        $totalParticipantes = Participante::where('sorteo_id', $sorteo->id)->count();
+
+        if ($totalParticipantes >= $sorteo->boletas) {
+            // Mostrar vista de “Sorteo lleno”
+            return view('sorteo-lleno', [
+                'sorteo' => $sorteo,
+            ]);
+        }
+
+        $participanteExistente = Participante::where('sorteo_id', $sorteo->id)
             ->where(function ($query) use ($request) {
                 $query->where('cedula', $request->cedula)
                     ->orWhere('telefono', $request->telefono)
@@ -43,8 +52,8 @@ class RegistroParticipanteController extends Controller
             ]);
         }
 
-        Participante::create([
-            'sorteo_id' => $sorteo_id,
+        $participante = Participante::create([
+            'sorteo_id' => $sorteo->id,
             'tienda_id' => $tienda_id,
             'nombre' => $request->nombre,
             'cedula' => $request->cedula,
@@ -52,6 +61,6 @@ class RegistroParticipanteController extends Controller
             'correo' => $request->correo,
         ]);
 
-        return view('exito-registro-sorteo');
+        return view('exito-registro-sorteo', compact('participante'));
     }
 }

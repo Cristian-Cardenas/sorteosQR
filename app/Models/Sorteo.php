@@ -45,6 +45,21 @@ class Sorteo extends Model
                 ]);
             }
         });
+        static::deleting(function (Sorteo $sorteo) {
+            $qrTiendas = $sorteo->qrTiendas; // relación con QrTienda
+
+            foreach ($qrTiendas as $qrTienda) {
+                if ($qrTienda->codigo_qr) {
+                    $filePath = "qrcodes/{$qrTienda->codigo_qr}.png";
+
+                    if (Storage::disk('public')->exists($filePath)) {
+                        Storage::disk('public')->delete($filePath);
+                    }
+                }
+
+                $qrTienda->delete(); // elimina el registro de la tabla
+            }
+        });
     }
     public function premios()
     {

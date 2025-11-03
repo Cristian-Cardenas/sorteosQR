@@ -16,6 +16,9 @@ class SorteoInfolist
                 TextEntry::make('descripcion'),
                 TextEntry::make('boletas')
                     ->numeric(),
+                TextEntry::make('participantes_count')
+                    ->label('Participantes')
+                    ->counts('participantes'),
                 // IconEntry::make('estado')
                 //     ->boolean(),
                 TextEntry::make('created_at')

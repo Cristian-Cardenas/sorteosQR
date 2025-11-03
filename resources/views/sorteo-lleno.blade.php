@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ya estás participando</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sorteo lleno</title>
     <style>
         body {
             background: #f9fafb;
@@ -24,14 +24,17 @@
 
 <body>
     <div class="card p-4">
-        <h4 class="text-success mb-3">✅ Ya estás participando</h4>
-        <p>Gracias, {{ $participante->nombre }}. Ya registramos tu participación en este sorteo.</p>
-    </div>
+        <h4 class="text-success mb-3">El sorteo "{{ $sorteo->nombre }}" ya está lleno 🎟️</h4>
+        <p>Lo sentimos, ya se ha alcanzado el número máximo de boletas
+            ({{ $sorteo->boletas }}).</p>
+        <p>Gracias por tu interés en participar.</p>
 
+        <p class="text-muted"><span id="countdown"></span></p>
+    </div>
     <script>
         window.history.replaceState({}, document.title, "/sorteos");
-        setTimeout(() => window.close(), 5000);
 
+        setTimeout(() => window.close(), 5000);
     </script>
 </body>
 

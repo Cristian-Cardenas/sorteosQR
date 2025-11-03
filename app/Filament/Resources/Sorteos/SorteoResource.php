@@ -44,6 +44,8 @@ class SorteoResource extends Resource
         return [
             RelationManagers\PremiosRelationManager::class,
             RelationManagers\QrTiendasRelationManager::class,
+            RelationManagers\ParticipantesRelationManager::class,
+            RelationManagers\GanadoresRelationManager::class,
         ];
     }
 

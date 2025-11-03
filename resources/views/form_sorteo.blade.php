@@ -18,7 +18,7 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
-            <form method="POST" action="{{ route('participante.store', [$sorteo->id, $tienda->id]) }}">
+            <form method="POST" action="{{ route('participante.store', $slug) }}">
                 @csrf
 
                 <div class="mb-3">

@@ -39,9 +39,18 @@ class QrTienda extends Model
             $filePath = "qrcodes/{$qrTienda->codigo_qr}.png";
             Storage::disk('public')->put($filePath, $qrImage);
 
-            $qrTienda->update([
+            $qrTienda->updateQuietly([
                 'url_qr' => asset("storage/{$filePath}"),
             ]);
+        });
+        static::deleting(function ($qrTienda) {
+            if ($qrTienda->codigo_qr) {
+                $filePath = "qrcodes/{$qrTienda->codigo_qr}.png";
+
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
         });
     }
     public function sorteo()

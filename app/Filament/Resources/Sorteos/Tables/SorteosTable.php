@@ -21,7 +21,12 @@ class SorteosTable
                 TextColumn::make('descripcion')
                     ->searchable(),
                 TextColumn::make('boletas')
-                    ->numeric()                                                                                                                                                                                     
+                    ->numeric()
+                    ->sortable(),
+                    TextColumn::make('participantes_count')
+                    ->label('Participantes')
+                    ->counts('participantes')
+                    ->numeric()
                     ->sortable(),
                 // IconColumn::make('estado')
                 //     ->boolean(),

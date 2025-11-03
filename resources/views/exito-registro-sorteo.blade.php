@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ya estás participando</title>
+    <title>Registro Exitoso</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -24,23 +24,14 @@
 
 <body>
     <div class="card p-4">
-        <h4 class="text-success mb-3">✅Registro exitosoo</h4>
+        <h4 class="text-success mb-3">✅Registro exitoso</h4>
         <p>Gracias, {{ $participante->nombre }}. Ya participas en este sorteo.</p>
-        <p class="text-muted"><span id="countdown"></span></p>
     </div>
 
     <script>
         window.history.replaceState({}, document.title, "/sorteos");
-        let timeLeft = 3;
-        const countdown = document.getElementById('countdown');
-        const timer = setInterval(() => {
-            timeLeft--;
-            countdown.textContent = timeLeft;
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                window.close();
-            }
-        }, 1000);
+        setTimeout(() => window.close(), 5000);
+
     </script>
 </body>
 

@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Participante extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'sorteo_id',
         'tienda_id',
@@ -14,4 +15,9 @@ class Participante extends Model
         'telefono',
         'correo',
     ];
+
+    public function tienda()
+    {
+        return $this->belongsTo(Tienda::class);
+    }
 }
