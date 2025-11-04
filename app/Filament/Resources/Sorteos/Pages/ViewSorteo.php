@@ -9,7 +9,10 @@ use App\Models\Ganador;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Actions;
 use Illuminate\Support\Facades\DB;
-
+use App\Livewire\ParticipantesPorTiendaChart;
+use App\Livewire\StatPorTiendaWidget;
+use Filament\Notifications\Notification;
+use Exception;
 class ViewSorteo extends ViewRecord
 {
     protected static string $resource = SorteoResource::class;
@@ -27,39 +30,76 @@ class ViewSorteo extends ViewRecord
                 ->modalHeading('Generar ganadores aleatorios')
                 ->modalDescription('Se seleccionará un participante aleatorio por cada premio de este sorteo.')
                 ->action(function ($record) {
-                    DB::transaction(function () use ($record) {
-                        $sorteo_id = $record->id;
+                    try {
+                        DB::transaction(function () use ($record) {
+                            $sorteo_id = $record->id;
 
-                        $premios = Premio::where('sorteo_id', $sorteo_id)->get();
-                        $participantes = Participante::where('sorteo_id', $sorteo_id)
-                            ->inRandomOrder()
-                            ->get();
+                            $premios = Premio::where('sorteo_id', $sorteo_id)->get();
+                            $participantes = Participante::where('sorteo_id', $sorteo_id)
+                                ->inRandomOrder()
+                                ->get();
 
-                        if ($premios->isEmpty()) {
-                            throw new \Exception('No hay premios registrados en este sorteo.');
-                        }
+                            if ($premios->isEmpty()) {
+                                Notification::make()
+                                    ->title('¡Faltan Premios! 🎁')
+                                    ->body('No puedes realizar el sorteo porque **no hay premios** registrados.')
+                                    ->danger()
+                                    ->persistent()
+                                    ->send();
+                                return;
+                            }
 
-                        if ($participantes->isEmpty()) {
-                            throw new \Exception('No hay participantes en este sorteo.');
-                        }
+                            if ($participantes->isEmpty()) {
+                                Notification::make()
+                                    ->title('¡Sin Participantes! 👥')
+                                    ->body('El sorteo requiere participantes para poder ser ejecutado.')
+                                    ->warning()
+                                    ->send();
+                                return;
+                            }
 
-                        // Limpia ganadores anteriores (opcional)
-                        Ganador::where('sorteo_id', $sorteo_id)->delete();
+                            Ganador::where('sorteo_id', $sorteo_id)->delete();
 
-                        foreach ($premios as $premio) {
-                            $ganador = $participantes->pop(); // extrae uno aleatorio
-                            if (!$ganador)
-                                break;
+                            foreach ($premios as $premio) {
+                                $ganador = $participantes->pop();
+                                if (!$ganador)
+                                    break;
 
-                            Ganador::create([
-                                'sorteo_id' => $sorteo_id,
-                                'premio_id' => $premio->id,
-                                'participante_id' => $ganador->id,
-                            ]);
-                        }
-                    });
+                                Ganador::create([
+                                    'sorteo_id' => $sorteo_id,
+                                    'premio_id' => $premio->id,
+                                    'participante_id' => $ganador->id,
+                                ]);
+                            }
+                            Notification::make()
+                                ->title('🎉 Ganadores generados correctamente')
+                                ->body('Se han generado los ganadores del sorteo.')
+                                ->success()
+                                ->send();
+                        });
+                    } catch (Exception $e) {
+                        Notification::make()
+                            ->title('⚠️ Falló la ejecución del sorteo')
+                            ->body('Ocurrió un error al generar los ganadores: ' . $e->getMessage())
+                            ->danger()
+                            ->send();
+
+                        return;
+                    }
                 })
-                ->successNotificationTitle('🎉 Ganadores generados correctamente'),
+            // ->successNotificationTitle('🎉 Ganadores generados correctamente')
         ];
     }
+    
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ParticipantesPorTiendaChart::make([
+                'sorteoId' => $this->record->id,
+            ]),
+            StatPorTiendaWidget::make(),
+            
+        ];
+    }
+
 }

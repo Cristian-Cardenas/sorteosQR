@@ -35,9 +35,9 @@ class ParticipantesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('nombre')
             ->columns([
-                TextColumn::make('tienda.nombre')
+                TextColumn::make('tienda.nombre')->sortable()
                     ->searchable(),
-                TextColumn::make('nombre')
+                TextColumn::make('nombre')->sortable()
                     ->searchable(),
                 TextColumn::make('cedula')
                     ->searchable(),

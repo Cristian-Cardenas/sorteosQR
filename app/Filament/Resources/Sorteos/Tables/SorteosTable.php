@@ -15,6 +15,7 @@ class SorteosTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('nombre')
                     ->searchable(),
@@ -23,7 +24,7 @@ class SorteosTable
                 TextColumn::make('boletas')
                     ->numeric()
                     ->sortable(),
-                    TextColumn::make('participantes_count')
+                TextColumn::make('participantes_count')
                     ->label('Participantes')
                     ->counts('participantes')
                     ->numeric()

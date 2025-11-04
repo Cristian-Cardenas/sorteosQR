@@ -13,6 +13,10 @@ class Tienda extends Model
     {
         return $this->hasMany(QrTienda::class);
     }
+    public function participantes()
+    {
+        return $this->hasMany(Participante::class);
+    }
 
 
 }
