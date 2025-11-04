@@ -20,7 +20,7 @@ class ViewSorteo extends ViewRecord
             Actions\EditAction::make(),
 
             Actions\Action::make('generar_ganadores')
-                ->label('🎯 Generar Ganadores')
+                ->label('Generar Ganadores')
                 ->icon('heroicon-o-trophy')
                 ->color('success')
                 ->requiresConfirmation()

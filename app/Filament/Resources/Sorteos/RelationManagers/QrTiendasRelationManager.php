@@ -60,7 +60,14 @@ class QrTiendasRelationManager extends RelationManager
                 TextColumn::make('tienda.nombre')->label('Tienda')->sortable()->searchable(),
                 // TextColumn::make('slug')->label('Slug')->copyable(),
                 // TextColumn::make('codigo_qr')->label('Código QR')->copyable(),
-                TextColumn::make('url_qr')->label('URL')->copyable(),
+                TextColumn::make('url_qr')
+                    ->label('Código QR')
+                    ->html()
+                    ->formatStateUsing(fn($state) => "
+                    <a href='{$state}' download class='btn btn-sm btn-primary'>
+                        Descargar QR
+                    </a>
+                "),
             ])
             ->headerActions([
                 CreateAction::make()->label('Agregar Tienda'),
