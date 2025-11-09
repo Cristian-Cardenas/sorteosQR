@@ -1,61 +1,45 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎟️ SorteosQR: Plataforma de Gestión y Análisis de Sorteos con Código QR
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel v10.x](https://img.shields.io/badge/Laravel-10-red?style=flat-square&logo=laravel)](https://laravel.com/)
+[![Filament](https://img.shields.io/badge/Filament%20PHP-Admin%20Panel-39b1a5?style=flat-square&logo=laravel)](https://filamentphp.com/)
+[![PHP v8.2+](https://img.shields.io/badge/PHP-8.2+-blue?style=flat-square&logo=php)](https://www.php.net/)
+[![MySQL](https://img.shields.io/badge/Database-MySQL-orange?style=flat-square&logo=mysql)](https://www.mysql.com/)
 
-## About Laravel
+## 💡 Descripción del Proyecto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**SorteosQR** es una plataforma robusta diseñada para la **gestión integral de sorteos** asociados a tiendas físicas. Su funcionalidad principal radica en la asignación de **Códigos QR únicos** a cada tienda para facilitar el registro de clientes y en la posterior **generación de ganadores aleatorios**.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+El proyecto demuestra la capacidad de crear sistemas transaccionales seguros y herramientas de análisis de datos a través de **Laravel y Filament**, enfocándose en la **seguridad** y la **visibilidad de datos**.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔑 Habilidades Clave Demostradas
 
-## Learning Laravel
+Este repositorio pone en valor tus competencias en las siguientes áreas:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* **Desarrollo con Filament:** Experiencia en la creación de paneles de administración completos (Resources, Forms, Tables) para gestionar modelos de datos complejos (Tiendas, Sorteos, Premios, Participantes).
+* **Análisis y Reportes de Datos:** Implementación de vistas y lógica para generar **estadísticas generales y específicas por sorteo**. Esto incluye métricas como la tasa de participación, el número total de inscritos, la distribución de premios, etc.
+* **Lógica de Sorteo y Aleatoriedad:** Desarrollo de un algoritmo de selección de ganadores que es **aleatorio** y **sin repeticiones**, garantizando la equidad del sorteo.
+* **Seguridad y Anti-Fraude:** Desarrollo de medidas de seguridad cruciales, tales como:
+    * **Validación de Unicidad:** Bloqueo de registros duplicados por el mismo usuario en el mismo sorteo.
+    * **URL de QR Dinámicas/Seguras:** Generación y gestión de URLs únicas para el registro, evitando manipulaciones externas.
+* **Manejo de Relaciones Complejas:** Modelado y gestión de las relaciones entre **Tiendas**, **Sorteos**, **Premios** y **Participantes** con Eloquent ORM.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🎯 Flujo de la Plataforma
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+El sistema sigue un flujo de trabajo claro a través del panel de administración de Filament:
 
-## Laravel Sponsors
+1.  **Creación de Tiendas y Sorteos:** Definición de tiendas y configuración de sorteos con sus respectivos premios.
+2.  **Generación de QR Único:** Se crea un código QR para cada tienda, asociado a la URL de registro.
+3.  **Registro de Clientes:** El cliente escanea el QR, accede al formulario e ingresa sus datos (el sistema identifica automáticamente la tienda y el sorteo).
+4.  **Selección de Ganadores:** Un botón en el panel de Filament ejecuta la lógica que selecciona **aleatoriamente** al número exacto de ganadores.
+5.  **Visualización de Estadísticas:** El sistema ofrece paneles de resumen con métricas clave del rendimiento de todos los sorteos, y vistas detalladas para análisis específicos.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🛠️ Tecnologías Utilizadas
 
-### Premium Partners
+| Componente | Tecnología |
+| :--- | :--- |
+| **Backend & Core** | **Laravel 10**, PHP 8.2+ |
+| **Panel de Administración** | **Filament PHP** |
+| **Lógica** | Librería de **Generación de Códigos QR** |
+| **Análisis de Datos** | **Consultas Agregadas** con Eloquent y MySQL |
+| **Base de Datos** | MySQL |
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
