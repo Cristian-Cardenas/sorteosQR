@@ -5,7 +5,7 @@ use App\Http\Controllers\RegistroParticipanteController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// Route::redirect('/', '/admin');
 Route::get('/qr/{slug}', [RegistroParticipanteController::class, 'create'])
     ->name('participante.form');
 
