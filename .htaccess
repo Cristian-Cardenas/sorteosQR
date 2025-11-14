@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirigir la raíz al directorio public
+    RewriteRule ^$ public/ [L]
+
+    # Redirigir todo lo demás a public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
