@@ -18,7 +18,7 @@ class ParticipantesPorTiendaChart extends ChartWidget
                 'labels' => [],
             ];
         }
-
+        
         $data = Tienda::query()
             ->select('nombre')
             ->withCount([

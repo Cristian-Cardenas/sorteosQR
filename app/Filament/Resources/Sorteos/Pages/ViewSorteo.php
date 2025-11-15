@@ -97,7 +97,9 @@ class ViewSorteo extends ViewRecord
             ParticipantesPorTiendaChart::make([
                 'sorteoId' => $this->record->id,
             ]),
-            StatPorTiendaWidget::make(),
+            StatPorTiendaWidget::make([
+                'sorteoId' => $this->record->id,
+            ]),
             
         ];
     }

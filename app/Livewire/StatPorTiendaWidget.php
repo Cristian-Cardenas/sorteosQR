@@ -8,34 +8,30 @@ use App\Models\Sorteo;
 use App\Models\Participante;
 use App\Models\Ganador;
 use App\Models\Premio;
-use App\Models\Tienda;
 
 class StatPorTiendaWidget extends StatsOverviewWidget
 {
-    protected static ?int $sort = 1;
+    public ?int $sorteoId = null;
+
+    protected static bool $isDiscovered = false;
+
     protected function getStats(): array
     {
         return [
-            Stat::make('Sorteos totales', Sorteo::count())
-                ->description('Número total de sorteos registrados')
-                ->descriptionIcon('heroicon-m-gift')
-                ->color('success'),
-
-            Stat::make('Participantes', Participante::count())
-                ->description('Usuarios registrados en los sorteos')
+            Stat::make('Participantes', Participante::where('sorteo_id', $this->sorteoId)->count())
+                ->description('Usuarios registrados en este sorteo')
                 ->descriptionIcon('heroicon-m-user-group')
                 ->color('primary'),
 
-            Stat::make('Ganadores', Ganador::count())
-                ->description('Total de ganadores generados')
+            Stat::make('Ganadores', Ganador::where('sorteo_id', $this->sorteoId)->count())
+                ->description('Total de ganadores en este sorteo')
                 ->descriptionIcon('heroicon-m-trophy')
                 ->color('warning'),
 
-            Stat::make('Premios', Premio::count())
-                ->description('Premios disponibles en los sorteos')
+            Stat::make('Premios', Premio::where('sorteo_id', $this->sorteoId)->count())
+                ->description('Premios asignados a este sorteo')
                 ->descriptionIcon('heroicon-m-cube')
                 ->color('info'),
-
         ];
     }
 }

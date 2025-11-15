@@ -40,11 +40,11 @@ class EstadisticasGlobalesWidget extends StatsOverviewWidget
                 ->description('Tiendas participantes')
                 ->descriptionIcon('heroicon-m-building-storefront')
                 ->color('gray'),
-            Stat::make('Unique views', '192.1k')
-                ->description('32k increase')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->chart([7, 2, 10, 3, 55, 24, 87])
-                ->color('success'),
+            // Stat::make('Unique views', '192.1k')
+            //     ->description('32k increase')
+            //     ->descriptionIcon('heroicon-m-arrow-trending-up')
+            //     ->chart([7, 2, 10, 3, 55, 24, 87])
+            //     ->color('success'),
         ];
     }
 }

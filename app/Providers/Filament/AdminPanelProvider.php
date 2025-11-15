@@ -56,7 +56,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-
+            ->collapsibleNavigationGroups(false)
             ->unsavedChangesAlerts()
             ->spa();
     }
