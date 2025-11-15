@@ -11,7 +11,7 @@ class ParticipanteSeeder extends Seeder
 {
     public function run(): void
     {
-        $sorteoId = 3;
+        $sorteoId = 4;
         $totalParticipantes = 30;
 
         $tiendaIds = Tienda::pluck('id')->toArray();
